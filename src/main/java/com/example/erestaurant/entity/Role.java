@@ -1,0 +1,5 @@
+package com.example.erestaurant.entity;
+
+public enum Role {
+    CUSTOMER, SUPER_USER, ADMINISTRATOR, KITCHEN_STAFF_MEMBER, DELIVERY_RESPONSIBLE, BUSINESS_ANALYST
+}
