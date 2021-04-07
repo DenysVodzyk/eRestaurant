@@ -1,6 +1,40 @@
 package com.example.erestaurant.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "dish_category")
 public class DishCategory {
-    //BEVERAGE, APPETIZER, SALAD, SOUP, MAIN_COURSE, DESERT
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+
+    public DishCategory() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "DishCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
 
