@@ -1,22 +1,49 @@
 package com.example.erestaurant.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "dish")
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_order_id")
+    private CustomerOrder customerOrder;
+
+    @ManyToOne
+    @JoinColumn(name = "dish_category_id")
+    private DishCategory dishCategory;
+
+    @Column(name = "price")
     private int price;
-    private DishCategory category;
+
+    @Column(name = "is_kitchen_made")
     private boolean isKitchenMade;
+
+    @Column(name = "ingredients")
     private String ingredients;
+
+    @Column(name = "is_active")
     private boolean isActive;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "dish_status")
+    private DishStatus dishStatus;
+
     public Dish() {
+    }
+
+    public Dish(int price, DishCategory category, boolean isKitchenMade, String ingredients, boolean isActive, DishStatus dishStatus) {
+        this.price = price;
+        this.dishCategory = category;
+        this.isKitchenMade = isKitchenMade;
+        this.ingredients = ingredients;
+        this.isActive = isActive;
+        this.dishStatus = dishStatus;
     }
 
     public int getId() {
@@ -27,6 +54,22 @@ public class Dish {
         this.id = id;
     }
 
+    public CustomerOrder getCustomerOrder() {
+        return customerOrder;
+    }
+
+    public void setCustomerOrder(CustomerOrder customerOrder) {
+        this.customerOrder = customerOrder;
+    }
+
+    public DishStatus getDishStatus() {
+        return dishStatus;
+    }
+
+    public void setDishStatus(DishStatus dishStatus) {
+        this.dishStatus = dishStatus;
+    }
+
     public int getPrice() {
         return price;
     }
@@ -35,12 +78,12 @@ public class Dish {
         this.price = price;
     }
 
-    public DishCategory getCategory() {
-        return category;
+    public DishCategory getDishCategory() {
+        return dishCategory;
     }
 
-    public void setCategory(DishCategory category) {
-        this.category = category;
+    public void setDishCategory(DishCategory category) {
+        this.dishCategory = category;
     }
 
     public boolean isKitchenMade() {
@@ -71,11 +114,13 @@ public class Dish {
     public String toString() {
         return "Dish{" +
                 "id=" + id +
+                ", customerOrder=" + customerOrder +
+                ", category=" + dishCategory +
                 ", price=" + price +
-                ", category=" + category +
                 ", isKitchenMade=" + isKitchenMade +
                 ", ingredients='" + ingredients + '\'' +
                 ", isActive=" + isActive +
+                ", dishStatus=" + dishStatus +
                 '}';
     }
 }
