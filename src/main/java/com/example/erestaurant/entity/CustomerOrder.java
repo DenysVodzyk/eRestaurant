@@ -9,14 +9,33 @@ import java.util.List;
 public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "customerOrder")
     private List<Dish> dishes;
+
+    @Column(name = "order_submit_time")
     private LocalDateTime orderSubmitTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private OrderStatus status;
+
+    @Column(name = "total_price")
     private int totalPrice;
 
     public CustomerOrder() {
+    }
+
+    public CustomerOrder(LocalDateTime orderSubmitTime, OrderStatus status, int totalPrice) {
+        this.orderSubmitTime = orderSubmitTime;
+        this.status = status;
+        this.totalPrice = totalPrice;
     }
 
     public int getId() {
