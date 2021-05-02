@@ -3,17 +3,41 @@ package com.example.erestaurant.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "street")
     private String street;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "province")
     private String province;
+
+    @Column(name = "postal_code")
     private String postalCode;
+
+    @Column(name = "note")
     private String note;
 
     public Address() {
+    }
+
+    public Address(String street, String city, String province, String postalCode, String note) {
+        this.street = street;
+        this.city = city;
+        this.province = province;
+        this.postalCode = postalCode;
+        this.note = note;
     }
 
     public int getId() {
@@ -22,6 +46,14 @@ public class Address {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getStreet() {
@@ -68,6 +100,7 @@ public class Address {
     public String toString() {
         return "Address{" +
                 "id=" + id +
+                ", user=" + user +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", province='" + province + '\'' +
