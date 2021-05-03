@@ -10,9 +10,9 @@ public class Address {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     @Column(name = "street")
     private String street;
@@ -48,13 +48,13 @@ public class Address {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public String getStreet() {
         return street;
@@ -100,7 +100,6 @@ public class Address {
     public String toString() {
         return "Address{" +
                 "id=" + id +
-                ", user=" + user +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", province='" + province + '\'' +
