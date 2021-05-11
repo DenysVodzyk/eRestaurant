@@ -11,8 +11,8 @@ public class Dish {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_order_id")
-    private CustomerOrder customerOrder;
+    @JoinColumn(name = "ordered_dish_id")
+    private OrderedDish orderedDish;
 
     @ManyToOne
     @JoinColumn(name = "dish_category_id")
@@ -54,12 +54,12 @@ public class Dish {
         this.id = id;
     }
 
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
+    public OrderedDish getOrderedDish() {
+        return orderedDish;
     }
 
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
+    public void setOrderedDish(OrderedDish orderedDish) {
+        this.orderedDish = orderedDish;
     }
 
     public DishStatus getDishStatus() {
@@ -114,7 +114,6 @@ public class Dish {
     public String toString() {
         return "Dish{" +
                 "id=" + id +
-                ", customerOrder=" + customerOrder +
                 ", category=" + dishCategory +
                 ", price=" + price +
                 ", isKitchenMade=" + isKitchenMade +
