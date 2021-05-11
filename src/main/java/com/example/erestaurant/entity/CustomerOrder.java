@@ -17,7 +17,7 @@ public class CustomerOrder {
     private User user;
 
     @OneToMany(mappedBy = "customerOrder")
-    private List<Dish> dishes;
+    private List<OrderedDish> orderedDishes;
 
     @Column(name = "order_submit_time")
     private LocalDateTime orderSubmitTime;
@@ -54,12 +54,12 @@ public class CustomerOrder {
         this.user = user;
     }
 
-    public List<Dish> getDishes() {
-        return dishes;
+    public List<OrderedDish> getOrderedDishes() {
+        return orderedDishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
+    public void setOrderedDishes(List<OrderedDish> orderedDishes) {
+        this.orderedDishes = orderedDishes;
     }
 
     public LocalDateTime getOrderSubmitTime() {
@@ -91,7 +91,7 @@ public class CustomerOrder {
         return "CustomerOrder{" +
                 "id=" + id +
                 ", user=" + user +
-                ", dishes=" + dishes +
+                ", orderedDishes=" + orderedDishes +
                 ", orderSubmitTime=" + orderSubmitTime +
                 ", status=" + status +
                 ", totalPrice=" + totalPrice +
