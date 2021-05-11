@@ -10,9 +10,9 @@ public class Address {
     @Column(name = "id")
     private int id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "street")
     private String street;
@@ -40,6 +40,14 @@ public class Address {
         this.note = note;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public int getId() {
         return id;
     }
@@ -47,14 +55,6 @@ public class Address {
     public void setId(int id) {
         this.id = id;
     }
-
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
 
     public String getStreet() {
         return street;
