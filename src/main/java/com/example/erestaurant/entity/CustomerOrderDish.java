@@ -4,21 +4,21 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "ordered_dish")
-public class OrderedDish {
+@Table(name = "customer_order_dish")
+public class CustomerOrderDish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "cusomer_order_id")
+    @JoinColumn(name = "customer_order_id")
     private CustomerOrder customerOrder;
 
-    @OneToMany(mappedBy = "orderedDish")
+    @OneToMany(mappedBy = "customerOrderDish")
     private List<Dish> dishes;
 
-    public OrderedDish() {
+    public CustomerOrderDish() {
     }
 
     public int getId() {
