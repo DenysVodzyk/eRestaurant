@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "dish_category")
-public class DishCategory {
+@Table(name = "menu_item_category")
+public class MenuItemCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @OneToMany(mappedBy = "dishCategory")
-    private List<Dish> dishes;
+    @OneToMany(mappedBy = "menuItemCategory")
+    private List<MenuItem> menuItems;
 
     @Column(name = "name")
     private String name;
 
-    public DishCategory() {
+    public MenuItemCategory() {
     }
 
-    public DishCategory(String name) {
+    public MenuItemCategory(String name) {
         this.name = name;
     }
 
@@ -32,12 +32,12 @@ public class DishCategory {
         this.id = id;
     }
 
-    public List<Dish> getDishes() {
-        return dishes;
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
     }
 
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
+    public void setMenuItems(List<MenuItem> menuItems) {
+        this.menuItems = menuItems;
     }
 
     public String getName() {
@@ -50,9 +50,8 @@ public class DishCategory {
 
     @Override
     public String toString() {
-        return "DishCategory{" +
+        return "MenuItemCategory{" +
                 "id=" + id +
-                ", dishes=" + dishes +
                 ", name='" + name + '\'' +
                 '}';
     }
