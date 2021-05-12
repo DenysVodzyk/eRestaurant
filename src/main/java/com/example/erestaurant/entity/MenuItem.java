@@ -3,20 +3,16 @@ package com.example.erestaurant.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "dish")
-public class Dish {
+@Table(name = "menu_item")
+public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "ordered_dish_id")
-    private OrderedDish orderedDish;
-
-    @ManyToOne
-    @JoinColumn(name = "dish_category_id")
-    private DishCategory dishCategory;
+    @JoinColumn(name = "menu_item_category_id")
+    private MenuItemCategory menuItemCategory;
 
     @Column(name = "price")
     private int price;
@@ -30,12 +26,12 @@ public class Dish {
     @Column(name = "is_active")
     private boolean isActive;
 
-    public Dish() {
+    public MenuItem() {
     }
 
-    public Dish(int price, DishCategory category, boolean isKitchenMade, String ingredients, boolean isActive) {
+    public MenuItem(int id, int price, boolean isKitchenMade, String ingredients, boolean isActive) {
+        this.id = id;
         this.price = price;
-        this.dishCategory = category;
         this.isKitchenMade = isKitchenMade;
         this.ingredients = ingredients;
         this.isActive = isActive;
@@ -49,14 +45,6 @@ public class Dish {
         this.id = id;
     }
 
-    public OrderedDish getOrderedDish() {
-        return orderedDish;
-    }
-
-    public void setOrderedDish(OrderedDish orderedDish) {
-        this.orderedDish = orderedDish;
-    }
-
     public int getPrice() {
         return price;
     }
@@ -65,12 +53,12 @@ public class Dish {
         this.price = price;
     }
 
-    public DishCategory getDishCategory() {
-        return dishCategory;
+    public MenuItemCategory getMenuItemCategory() {
+        return menuItemCategory;
     }
 
-    public void setDishCategory(DishCategory category) {
-        this.dishCategory = category;
+    public void setMenuItemCategory(MenuItemCategory category) {
+        this.menuItemCategory = category;
     }
 
     public boolean isKitchenMade() {
@@ -99,9 +87,8 @@ public class Dish {
 
     @Override
     public String toString() {
-        return "Dish{" +
+        return "MenuItem{" +
                 "id=" + id +
-                ", category=" + dishCategory +
                 ", price=" + price +
                 ", isKitchenMade=" + isKitchenMade +
                 ", ingredients='" + ingredients + '\'' +
