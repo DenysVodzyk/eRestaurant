@@ -30,20 +30,15 @@ public class Dish {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "dish_status")
-    private DishStatus dishStatus;
-
     public Dish() {
     }
 
-    public Dish(int price, DishCategory category, boolean isKitchenMade, String ingredients, boolean isActive, DishStatus dishStatus) {
+    public Dish(int price, DishCategory category, boolean isKitchenMade, String ingredients, boolean isActive) {
         this.price = price;
         this.dishCategory = category;
         this.isKitchenMade = isKitchenMade;
         this.ingredients = ingredients;
         this.isActive = isActive;
-        this.dishStatus = dishStatus;
     }
 
     public int getId() {
@@ -60,14 +55,6 @@ public class Dish {
 
     public void setOrderedDish(OrderedDish orderedDish) {
         this.orderedDish = orderedDish;
-    }
-
-    public DishStatus getDishStatus() {
-        return dishStatus;
-    }
-
-    public void setDishStatus(DishStatus dishStatus) {
-        this.dishStatus = dishStatus;
     }
 
     public int getPrice() {
@@ -119,7 +106,6 @@ public class Dish {
                 ", isKitchenMade=" + isKitchenMade +
                 ", ingredients='" + ingredients + '\'' +
                 ", isActive=" + isActive +
-                ", dishStatus=" + dishStatus +
                 '}';
     }
 }

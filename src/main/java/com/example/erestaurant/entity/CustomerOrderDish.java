@@ -49,8 +49,6 @@ public class OrderedDish {
     public String toString() {
         return "OrderedDish{" +
                 "id=" + id +
-                ", customerOrder=" + customerOrder +
-                ", dishes=" + dishes +
                 '}';
     }
 }
