@@ -89,7 +89,6 @@ public class PaymentCard {
     public String toString() {
         return "PaymentCard{" +
                 "id=" + id +
-                ", user=" + user +
                 ", customerFullName='" + customerFullName + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", cvcCode=" + cvcCode +
