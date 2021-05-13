@@ -161,9 +161,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", addresses=" + addresses +
-                ", paymentCards=" + paymentCards +
-                ", orders=" + orders +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", isAnonymous=" + isAnonymous +
