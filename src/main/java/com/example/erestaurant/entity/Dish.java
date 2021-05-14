@@ -15,8 +15,8 @@ public class Dish {
     private MenuItem menuItem;
 
     @ManyToOne
-    @JoinColumn(name = "customer_order_dish_id")
-    private CustomerOrderDish customerOrderDish;
+    @JoinColumn(name = "customer_order_id")
+    private CustomerOrder customerOrder;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "dish_status")
@@ -50,13 +50,12 @@ public class Dish {
         this.menuItem = menuItem;
     }
 
-
-    public CustomerOrderDish getCustomerOrderDish() {
-        return customerOrderDish;
+    public CustomerOrder getCustomerOrder() {
+        return customerOrder;
     }
 
-    public void setCustomerOrderDish(CustomerOrderDish orderedDish) {
-        this.customerOrderDish = orderedDish;
+    public void setCustomerOrder(CustomerOrder customerOrder) {
+        this.customerOrder = customerOrder;
     }
 
     public DishStatus getDishStatus() {
