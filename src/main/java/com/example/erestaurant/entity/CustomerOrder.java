@@ -1,9 +1,14 @@
 package com.example.erestaurant.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "customer_order")
 public class CustomerOrder {
@@ -29,73 +34,6 @@ public class CustomerOrder {
     @Column(name = "total_price")
     private int totalPrice;
 
-    public CustomerOrder() {
-    }
-
-    public CustomerOrder(LocalDateTime orderSubmitTime, OrderStatus status, int totalPrice) {
-        this.orderSubmitTime = orderSubmitTime;
-        this.status = status;
-        this.totalPrice = totalPrice;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
-    public LocalDateTime getOrderSubmitTime() {
-        return orderSubmitTime;
-    }
-
-    public void setOrderSubmitTime(LocalDateTime orderSubmitTime) {
-        this.orderSubmitTime = orderSubmitTime;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerOrder{" +
-                "id=" + id +
-                ", user=" + user +
-                ", orderSubmitTime=" + orderSubmitTime +
-                ", status=" + status +
-                ", totalPrice=" + totalPrice +
-                '}';
-    }
 }
 
 
