@@ -42,17 +42,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByLogin(String login) throws ServiceException {
-        try {
-            ObjectValidator.validateObjectForNull(login);
-            return userRepository.findByLogin(login);
-        } catch (ObjectValidationException e) {
-            e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
-        }
-    }
-
-    @Override
     public User findByEmail(String email) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(email);
@@ -92,11 +81,11 @@ public class UserService implements IUserService {
     public void addUser(User user) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(user);
-            ObjectValidator.validateUserForNull(user);
-            if (findByLogin(user.getLogin()) == null && findByEmail(user.getEmail()) == null) {
+            ObjectValidator.validateUserFieldsForNull(user);
+            if (findByEmail(user.getEmail()) == null) {
                 userRepository.save(user);
             } else {
-                throw new ServiceException("Unable to add user " + user.getLogin() + ". User login or email already exists.");
+                throw new ServiceException("Unable to add user with email: " + user.getEmail() + ". Email already exists.");
             }
         } catch (ObjectValidationException | ServiceException e) {
             e.printStackTrace();
@@ -105,17 +94,18 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public void updateUserRole(User user, Role role) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(user);
             ObjectValidator.validateObjectForNull(role);
-            ObjectValidator.validateUserForNull(user);
+            ObjectValidator.validateUserFieldsForNull(user);
             User userToUpdate = findByEmail(user.getEmail());
             if (userToUpdate != null) {
                 userToUpdate.setRole(role);
                 userRepository.save(userToUpdate);
             } else {
-                throw new ServiceException("Unable to update user " + user.getLogin() + ". User is not registered in the database.");
+                throw new ServiceException("Unable to update user " + user.getEmail() + ". User is not registered in the database.");
             }
 
         } catch (ObjectValidationException e) {
@@ -123,17 +113,40 @@ public class UserService implements IUserService {
         }
     }
 
+    @Override
+    public void updateUserStatus(User user, boolean isUserActive) throws ServiceException {
+        try {
+            ObjectValidator.validateObjectForNull(user);
+            ObjectValidator.validateObjectForNull(isUserActive);
+            ObjectValidator.validateUserFieldsForNull(user);
+            User userToUpdate = findByEmail(user.getEmail());
+            if (userToUpdate != null) {
+                userToUpdate.setActive(isUserActive);
+                userRepository.save(userToUpdate);
+            } else {
+                throw new ServiceException("Unable to update user " + user.getEmail() + ". User is not registered in the database.");
+            }
+
+        } catch (ObjectValidationException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    //add address
+
 
     @Override
     @Transactional
     public void deleteUser(User user) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(user);
-            ObjectValidator.validateUserForNull(user);
+            ObjectValidator.validateUserFieldsForNull(user);
             if (findByEmail(user.getEmail()) != null) {
                 userRepository.delete(user);
             } else {
-                throw new ServiceException("Unable to delete user " + user.getLogin() + ". User is not registered in the database.");
+                throw new ServiceException("Unable to delete user " + user.getEmail() + ". User is not registered in the database.");
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
