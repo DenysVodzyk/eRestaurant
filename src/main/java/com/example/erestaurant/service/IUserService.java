@@ -12,8 +12,6 @@ public interface IUserService {
 
     Optional<User> findById(int id) throws ServiceException;
 
-    User findByLogin(String login) throws ServiceException;
-
     User findByEmail(String email) throws ServiceException;
 
     User findByNameAndLastName(String name, String lastName) throws ServiceException;
@@ -22,7 +20,9 @@ public interface IUserService {
 
     void addUser(User user) throws ServiceException;
 
-    public void updateUserRole(User user, Role role) throws ServiceException;
+    void updateUserRole(User user, Role role) throws ServiceException;
+
+    void updateUserStatus(User user, boolean isUserActive) throws ServiceException;
 
     void deleteUser(User user) throws ServiceException;
 
