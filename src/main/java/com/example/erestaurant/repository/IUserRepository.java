@@ -7,12 +7,9 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 
     User findByEmail(String email);
 
-    User findByLogin(String login);
-
     User findByNameAndLastName(String name, String lastName);
 
     User findByIdAndPassword(int id, String password);
-
 
 }
 
