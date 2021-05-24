@@ -26,8 +26,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<CustomerOrder> orders;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -47,9 +47,6 @@ public class User {
 
     @Column(name = "dob")
     private LocalDate dOb;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "phone_number")
     private String phoneNumber;
