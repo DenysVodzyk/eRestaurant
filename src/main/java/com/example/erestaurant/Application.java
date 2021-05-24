@@ -1,14 +1,12 @@
 package com.example.erestaurant;
 
-import com.example.erestaurant.entity.User;
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class Main {
+@SpringBootApplication
+public class Application {
     public static void main(String[] args) {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(Application.class, args);
 
 
     }
