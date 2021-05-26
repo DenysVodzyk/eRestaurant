@@ -26,12 +26,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> findById(int id) throws ServiceException {
+    public Optional<User> getById(int id) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(id);
             return userRepository.findById(id);
@@ -42,7 +42,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByEmail(String email) throws ServiceException {
+    public User getByEmail(String email) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(email);
             return userRepository.findByEmail(email);
@@ -53,7 +53,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByNameAndLastName(String name, String lastName) throws ServiceException {
+    public User getByNameAndLastName(String name, String lastName) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(name);
             ObjectValidator.validateObjectForNull(lastName);
@@ -65,7 +65,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByIdAndPassword(int id, String password) throws ServiceException {
+    public User getByIdAndPassword(int id, String password) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(id);
             ObjectValidator.validateObjectForNull(password);
@@ -77,60 +77,53 @@ public class UserService implements IUserService {
     }
 
     @Override
-    @Transactional
     public void addUser(User user) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(user);
             ObjectValidator.validateUserFieldsForNull(user);
-            if (findByEmail(user.getEmail()) == null) {
+            if (getByEmail(user.getEmail()) == null) {
                 userRepository.save(user);
             } else {
                 throw new ServiceException("Unable to add user with email: " + user.getEmail() + ". Email already exists.");
             }
-        } catch (ObjectValidationException | ServiceException e) {
+        } catch (ObjectValidationException e) {
             e.printStackTrace();
             throw new ServiceException("Validation of user object for null failed.");
         }
     }
 
     @Override
-    @Transactional
-    public void updateUserRole(User user, Role role) throws ServiceException {
+    public void updateUserRole(int userId, Role role) throws ServiceException {
         try {
-            ObjectValidator.validateObjectForNull(user);
+            ObjectValidator.validateObjectForNull(userId);
             ObjectValidator.validateObjectForNull(role);
-            ObjectValidator.validateUserFieldsForNull(user);
-            User userToUpdate = findByEmail(user.getEmail());
-            if (userToUpdate != null) {
-                userToUpdate.setRole(role);
-                userRepository.save(userToUpdate);
+            Optional<User> userToUpdate = getById(userId);
+            if (userToUpdate.isPresent()) {
+                userToUpdate.get().setRole(role);
+                userRepository.save(userToUpdate.get());
             } else {
-                throw new ServiceException("Unable to update user " + user.getEmail() + ". User is not registered in the database.");
+                throw new ServiceException("Unable to update user with ID: " + userId + ". User is not registered in the database.");
             }
-
         } catch (ObjectValidationException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateUserStatus(User user, boolean isUserActive) throws ServiceException {
+    public void updateUserStatus(int userId, boolean isUserActive) throws ServiceException {
         try {
-            ObjectValidator.validateObjectForNull(user);
+            ObjectValidator.validateObjectForNull(userId);
             ObjectValidator.validateObjectForNull(isUserActive);
-            ObjectValidator.validateUserFieldsForNull(user);
-            User userToUpdate = findByEmail(user.getEmail());
-            if (userToUpdate != null) {
-                userToUpdate.setActive(isUserActive);
-                userRepository.save(userToUpdate);
+            Optional<User> userToUpdate = getById(userId);
+            if (userToUpdate.isPresent()) {
+                userToUpdate.get().setActive(isUserActive);
+                userRepository.save(userToUpdate.get());
             } else {
-                throw new ServiceException("Unable to update user " + user.getEmail() + ". User is not registered in the database.");
+                throw new ServiceException("Unable to update user with ID: " + userId + ". User is not registered in the database.");
             }
-
         } catch (ObjectValidationException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -138,15 +131,14 @@ public class UserService implements IUserService {
 
 
     @Override
-    @Transactional
-    public void deleteUser(User user) throws ServiceException {
+    public void deleteUser(int userId) throws ServiceException {
         try {
-            ObjectValidator.validateObjectForNull(user);
-            ObjectValidator.validateUserFieldsForNull(user);
-            if (findByEmail(user.getEmail()) != null) {
-                userRepository.delete(user);
+            ObjectValidator.validateObjectForNull(userId);
+            Optional<User> userToDelete = getById(userId);
+            if (userToDelete.isPresent()) {
+                userRepository.delete(userToDelete.get());
             } else {
-                throw new ServiceException("Unable to delete user " + user.getEmail() + ". User is not registered in the database.");
+                throw new ServiceException("Unable to delete user with ID: " + userId + ". User is not registered in the database.");
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
