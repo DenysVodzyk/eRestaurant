@@ -8,23 +8,23 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
-    List<User> findAll();
+    List<User> getAll();
 
-    Optional<User> findById(int id) throws ServiceException;
+    Optional<User> getById(int id) throws ServiceException;
 
-    User findByEmail(String email) throws ServiceException;
+    User getByEmail(String email) throws ServiceException;
 
-    User findByNameAndLastName(String name, String lastName) throws ServiceException;
+    User getByNameAndLastName(String name, String lastName) throws ServiceException;
 
-    User findByIdAndPassword(int id, String password) throws ServiceException;
+    User getByIdAndPassword(int id, String password) throws ServiceException;
 
     void addUser(User user) throws ServiceException;
 
-    void updateUserRole(User user, Role role) throws ServiceException;
+    void updateUserRole(int userId, Role role) throws ServiceException;
 
-    void updateUserStatus(User user, boolean isUserActive) throws ServiceException;
+    void updateUserStatus(int userId, boolean isUserActive) throws ServiceException;
 
-    void deleteUser(User user) throws ServiceException;
+    void deleteUser(int userId) throws ServiceException;
 
 
 }
