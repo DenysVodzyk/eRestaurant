@@ -1,5 +1,6 @@
 package com.example.erestaurant.service;
 
+import com.example.erestaurant.entity.Address;
 import com.example.erestaurant.entity.Role;
 import com.example.erestaurant.entity.User;
 import com.example.erestaurant.exception.ServiceException;
@@ -21,6 +22,10 @@ public interface IUserService {
     void addUser(User user) throws ServiceException;
 
     void updateUserRole(int userId, Role role) throws ServiceException;
+
+    void addUserAddress(int userId, Address address) throws ServiceException;
+
+    List<Address> getUserAddresses(int userId) throws ServiceException;
 
     void updateUserStatus(int userId, boolean isUserActive) throws ServiceException;
 
