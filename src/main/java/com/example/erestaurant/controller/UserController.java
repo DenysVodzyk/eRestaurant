@@ -1,5 +1,6 @@
 package com.example.erestaurant.controller;
 
+import com.example.erestaurant.entity.Address;
 import com.example.erestaurant.entity.Role;
 import com.example.erestaurant.entity.User;
 import com.example.erestaurant.exception.ServiceException;
@@ -50,8 +51,27 @@ public class UserController {
         }
     }
 
+    @PostMapping("/users/{id}/address")
+    public ResponseEntity<Address> addUserAddress(@PathVariable int id, @RequestBody Address address) {
+        try {
+            userService.addUserAddress(id, address);
+            return new ResponseEntity<>(address, HttpStatus.OK);
+        } catch (ServiceException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/users/{id}/address")
+    public ResponseEntity<List<Address>> getUserAddresses(@PathVariable int id) {
+        try {
+            return new ResponseEntity<>(userService.getUserAddresses(id), HttpStatus.OK);
+        } catch (ServiceException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PatchMapping("/users/{id}/role")
-    public ResponseEntity<HttpStatus> updateUserRole(@PathVariable int id, Role newRole) {
+    public ResponseEntity<HttpStatus> updateUserRole(@PathVariable int id, @RequestBody Role newRole) {
         try {
             userService.updateUserRole(id, newRole);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -59,8 +79,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 
 
 }
