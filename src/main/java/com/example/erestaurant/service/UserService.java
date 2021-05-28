@@ -1,5 +1,6 @@
 package com.example.erestaurant.service;
 
+import com.example.erestaurant.entity.Address;
 import com.example.erestaurant.entity.Role;
 import com.example.erestaurant.entity.User;
 import com.example.erestaurant.exception.ObjectValidationException;
@@ -10,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +19,12 @@ import java.util.Optional;
 @Service
 public class UserService implements IUserService {
     private IUserRepository userRepository;
+    private IAddressService addressService;
 
     @Autowired
-    public UserService(IUserRepository userRepository) {
+    public UserService(IUserRepository userRepository, IAddressService addressService) {
         this.userRepository = userRepository;
+        this.addressService = addressService;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class UserService implements IUserService {
             return userRepository.findById(id);
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -48,7 +50,7 @@ public class UserService implements IUserService {
             return userRepository.findByEmail(email);
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -60,7 +62,7 @@ public class UserService implements IUserService {
             return userRepository.findByNameAndLastName(name, lastName);
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -72,7 +74,7 @@ public class UserService implements IUserService {
             return userRepository.findByIdAndPassword(id, password);
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -106,7 +108,43 @@ public class UserService implements IUserService {
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
+            throw new ServiceException("Validation for null failed.");
         }
+    }
+
+    @Override
+    public void addUserAddress(int userId, Address address) throws ServiceException {
+        try {
+            ObjectValidator.validateObjectForNull(userId);
+            ObjectValidator.validateAddressForNull(address);
+            Optional<User> user = getById(userId);
+            if (user.isPresent()) {
+                address.setUser(user.get());
+                addressService.add(address);
+            } else {
+                throw new ServiceException("Unable to add address to user with ID: " + userId + ". User is not registered in the database.");
+            }
+        } catch (ObjectValidationException e) {
+            e.printStackTrace();
+            throw new ServiceException("Validation for null failed.");
+        }
+    }
+
+    @Override
+    public List<Address> getUserAddresses(int userId) throws ServiceException {
+        try {
+            ObjectValidator.validateObjectForNull(userId);
+            Optional<User> user = getById(userId);
+            if (user.isPresent()) {
+                return addressService.getAddressByUserId(userId);
+            } else {
+                throw new ServiceException("User is not registered in the database.");
+            }
+        } catch (ObjectValidationException e) {
+            e.printStackTrace();
+            throw new ServiceException("Validation for null failed.");
+        }
+
     }
 
     @Override
@@ -123,12 +161,9 @@ public class UserService implements IUserService {
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
+            throw new ServiceException("Validation for null failed.");
         }
     }
-
-
-    //add address
-
 
     @Override
     public void deleteUser(int userId) throws ServiceException {
@@ -142,8 +177,8 @@ public class UserService implements IUserService {
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
+            throw new ServiceException("Validation for null failed.");
         }
-
     }
 
 
