@@ -1,5 +1,6 @@
 package com.example.erestaurant.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ public class MenuItemCategory {
     private int id;
 
     @OneToMany(mappedBy = "menuItemCategory")
+    @JsonManagedReference
     private List<MenuItem> menuItems;
 
     @Column(name = "name")
