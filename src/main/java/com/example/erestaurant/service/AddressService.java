@@ -1,7 +1,6 @@
 package com.example.erestaurant.service;
 
 import com.example.erestaurant.entity.Address;
-import com.example.erestaurant.entity.User;
 import com.example.erestaurant.exception.ObjectValidationException;
 import com.example.erestaurant.exception.ServiceException;
 import com.example.erestaurant.repository.IAddressRepository;
@@ -39,7 +38,7 @@ public class AddressService implements IAddressService {
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation of user object for null failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -55,7 +54,7 @@ public class AddressService implements IAddressService {
             return addressRepository.findById(addressId);
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -66,7 +65,7 @@ public class AddressService implements IAddressService {
             return addressRepository.findByUserId(userId);
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -85,7 +84,7 @@ public class AddressService implements IAddressService {
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
-            throw new ServiceException("Validation Failed.");
+            throw new ServiceException("Validation for null failed.");
         }
     }
 
@@ -101,6 +100,7 @@ public class AddressService implements IAddressService {
             }
         } catch (ObjectValidationException e) {
             e.printStackTrace();
+            throw new ServiceException("Validation for null failed.");
         }
     }
 }
