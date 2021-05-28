@@ -1,5 +1,6 @@
 package com.example.erestaurant.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ public class MenuItem {
 
     @ManyToOne
     @JoinColumn(name = "menu_item_category_id")
+    @JsonBackReference
     private MenuItemCategory menuItemCategory;
 
     @Column(name = "price")
