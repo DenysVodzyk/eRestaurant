@@ -1,5 +1,6 @@
 package com.example.erestaurant.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,10 +18,12 @@ public class Dish {
 
     @ManyToOne
     @JoinColumn(name = "menu_item_id")
+    @JsonBackReference
     private MenuItem menuItem;
 
     @ManyToOne
     @JoinColumn(name = "customer_order_id")
+    @JsonBackReference
     private CustomerOrder customerOrder;
 
     @Enumerated(EnumType.STRING)
