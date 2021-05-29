@@ -18,7 +18,7 @@ public class MenuItemCategory {
     private int id;
 
     @OneToMany(mappedBy = "menuItemCategory")
-    @JsonManagedReference
+    @JsonManagedReference(value="item-category")
     private List<MenuItem> menuItems;
 
     @Column(name = "name")
