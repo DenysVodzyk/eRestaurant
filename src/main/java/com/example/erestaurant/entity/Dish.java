@@ -18,12 +18,11 @@ public class Dish {
 
     @ManyToOne
     @JoinColumn(name = "menu_item_id")
-    @JsonBackReference
     private MenuItem menuItem;
 
     @ManyToOne
     @JoinColumn(name = "customer_order_id")
-    @JsonBackReference
+    @JsonBackReference(value="dish-order")
     private CustomerOrder customerOrder;
 
     @Enumerated(EnumType.STRING)
