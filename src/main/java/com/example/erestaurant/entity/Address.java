@@ -18,7 +18,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference(value="address-user")
     private User user;
 
     @Column(name = "address_line_1")
