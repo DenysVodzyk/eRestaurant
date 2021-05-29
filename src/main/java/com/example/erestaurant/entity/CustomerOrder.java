@@ -21,11 +21,11 @@ public class CustomerOrder {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference(value="order-user")
     private User user;
 
     @OneToMany(mappedBy = "customerOrder")
-    @JsonManagedReference
+    @JsonManagedReference(value="dish-order")
     private List<Dish> dishes;
 
     @Column(name = "order_submit_time")
