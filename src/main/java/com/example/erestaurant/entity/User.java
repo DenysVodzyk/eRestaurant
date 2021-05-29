@@ -19,15 +19,15 @@ public class User {
     private int id;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+    @JsonManagedReference(value="address-user")
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+    @JsonManagedReference(value="payment-user")
     private List<PaymentCard> paymentCards;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+    @JsonManagedReference(value="order-user")
     private List<CustomerOrder> orders;
 
     @Column(name = "email")
