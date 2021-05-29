@@ -18,7 +18,7 @@ public class MenuItem {
 
     @ManyToOne
     @JoinColumn(name = "menu_item_category_id")
-    @JsonBackReference
+    @JsonBackReference(value="item-category")
     private MenuItemCategory menuItemCategory;
 
     @Column(name = "price")
