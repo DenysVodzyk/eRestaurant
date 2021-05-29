@@ -19,7 +19,7 @@ public class PaymentCard {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference(value="payment-user")
     private User user;
 
     @Column(name = "customer_full_name")
