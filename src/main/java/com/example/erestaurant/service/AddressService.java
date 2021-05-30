@@ -27,7 +27,7 @@ public class AddressService implements IAddressService {
     public void add(Address address) throws ServiceException {
         try {
             ObjectValidator.validateObjectForNull(address);
-            ObjectValidator.validateAddressForNull(address);
+            ObjectValidator.validateAddressFieldsForNull(address);
             ObjectValidator.validateObjectForNull(address.getUser());
             ObjectValidator.validateUserFieldsForNull(address.getUser());
 
@@ -74,7 +74,7 @@ public class AddressService implements IAddressService {
         try {
             ObjectValidator.validateObjectForNull(oldAddressId);
             ObjectValidator.validateObjectForNull(newAddress);
-            ObjectValidator.validateAddressForNull(newAddress);
+            ObjectValidator.validateAddressFieldsForNull(newAddress);
             Optional<Address> addressToUpdate = getAddressById(oldAddressId);
             if (addressToUpdate.isPresent()) {
                 newAddress.setId(oldAddressId);
