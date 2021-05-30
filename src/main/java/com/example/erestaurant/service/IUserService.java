@@ -1,6 +1,7 @@
 package com.example.erestaurant.service;
 
 import com.example.erestaurant.entity.Address;
+import com.example.erestaurant.entity.PaymentCard;
 import com.example.erestaurant.entity.Role;
 import com.example.erestaurant.entity.User;
 import com.example.erestaurant.exception.ServiceException;
@@ -26,6 +27,10 @@ public interface IUserService {
     void addUserAddress(int userId, Address address) throws ServiceException;
 
     List<Address> getUserAddresses(int userId) throws ServiceException;
+
+    void addPaymentCard(int userId, PaymentCard paymentCard) throws ServiceException;
+
+    List<PaymentCard> getUserPaymentCards(int userId) throws ServiceException;
 
     void updateUserStatus(int userId, boolean isUserActive) throws ServiceException;
 
