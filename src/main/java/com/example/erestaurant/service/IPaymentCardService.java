@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPaymentCardService {
+
     void add(PaymentCard paymentCard) throws ServiceException;
 
     List<PaymentCard> getAllPaymentCards();
 
-    PaymentCard getPaymentCardByCustomerFullNameAndAndCardNumber(String customerFullName, String cardNumber);
-
-    Optional<PaymentCard> getPaymentCardById(int addressId) throws ServiceException;
+    Optional<PaymentCard> getPaymentCardById(int cardId) throws ServiceException;
 
     List<PaymentCard> getPaymentCardByUserId(int userId) throws ServiceException;
 
