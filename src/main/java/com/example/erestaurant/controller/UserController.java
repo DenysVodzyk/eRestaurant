@@ -1,6 +1,7 @@
 package com.example.erestaurant.controller;
 
 import com.example.erestaurant.entity.Address;
+import com.example.erestaurant.entity.PaymentCard;
 import com.example.erestaurant.entity.Role;
 import com.example.erestaurant.entity.User;
 import com.example.erestaurant.exception.ServiceException;
@@ -45,7 +46,7 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody User user) {
         try {
             userService.addUser(user);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (ServiceException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -55,7 +56,7 @@ public class UserController {
     public ResponseEntity<Address> addUserAddress(@PathVariable int id, @RequestBody Address address) {
         try {
             userService.addUserAddress(id, address);
-            return new ResponseEntity<>(address, HttpStatus.OK);
+            return new ResponseEntity<>(address, HttpStatus.CREATED);
         } catch (ServiceException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -65,6 +66,25 @@ public class UserController {
     public ResponseEntity<List<Address>> getUserAddresses(@PathVariable int id) {
         try {
             return new ResponseEntity<>(userService.getUserAddresses(id), HttpStatus.OK);
+        } catch (ServiceException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/users/{id}/payment")
+    public ResponseEntity<PaymentCard> addUserPaymentCard(@PathVariable int id, @RequestBody PaymentCard paymentCard) {
+        try {
+            userService.addPaymentCard(id, paymentCard);
+            return new ResponseEntity<>(paymentCard, HttpStatus.CREATED);
+        } catch (ServiceException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/users/{id}/payment")
+    public ResponseEntity<List<PaymentCard>> getUserPaymentCards(@PathVariable int id) {
+        try {
+            return new ResponseEntity<>(userService.getUserPaymentCards(id), HttpStatus.OK);
         } catch (ServiceException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -89,6 +109,4 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
