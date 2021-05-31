@@ -1,7 +1,6 @@
 package com.example.erestaurant.util;
 
-import com.example.erestaurant.entity.Address;
-import com.example.erestaurant.entity.User;
+import com.example.erestaurant.entity.*;
 import com.example.erestaurant.exception.ObjectValidationException;
 
 public class ObjectValidator {
@@ -12,12 +11,21 @@ public class ObjectValidator {
         }
     }
 
-    public static void validateAddressForNull(Address address) throws ObjectValidationException {
-        if (address.getCity() == null ||
+    public static void validateAddressFieldsForNull(Address address) throws ObjectValidationException {
+        if (address.getAddressLine1() == null ||
+                address.getCity() == null ||
                 address.getPostalCode() == null ||
-                address.getProvince() == null ||
-                address.getStreet() == null) {
+                address.getProvince() == null) {
             throw new ObjectValidationException(address + " object contains null field.");
+        }
+    }
+
+    public static void validatePaymentCardFieldsForNull(PaymentCard paymentCard) throws ObjectValidationException {
+        if (paymentCard.getCustomerFullName() == null ||
+                paymentCard.getCardNumber() == null ||
+                paymentCard.getCvcCode() == 0 ||
+                paymentCard.getExpirationDate() == null) {
+            throw new ObjectValidationException(paymentCard + " object contains null field.");
         }
     }
 
@@ -31,5 +39,16 @@ public class ObjectValidator {
         }
     }
 
+    public static void validateMenuItemCategoryFieldsForNull(MenuItemCategory menuItemCategory) throws ObjectValidationException {
+        if (menuItemCategory.getName() == null) {
+            throw new ObjectValidationException(menuItemCategory + " object contains null field.");
+        }
+    }
+
+    public static void validateMenuItemFieldsForNull(MenuItem menuItem) throws ObjectValidationException {
+        if (menuItem.getIngredients() == null || menuItem.getPrice() == 0) {
+            throw new ObjectValidationException(menuItem + " object contains null field.");
+        }
+    }
 
 }
