@@ -1,6 +1,7 @@
 package com.example.erestaurant.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,15 +20,15 @@ public class User {
     private int id;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference(value="address-user")
+    @JsonManagedReference(value = "address-user")
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference(value="payment-user")
+    @JsonManagedReference(value = "payment-user")
     private List<PaymentCard> paymentCards;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference(value="order-user")
+    @JsonManagedReference(value = "order-user")
     private List<CustomerOrder> orders;
 
     @Column(name = "email")
@@ -37,6 +38,7 @@ public class User {
     private String password;
 
     @Column(name = "is_anonymous")
+    @JsonProperty("isAnonymous")
     private boolean isAnonymous;
 
     @Enumerated(EnumType.STRING)
@@ -56,6 +58,7 @@ public class User {
     private String phoneNumber;
 
     @Column(name = "is_active")
+    @JsonProperty("isActive")
     private boolean isActive;
 
 }
