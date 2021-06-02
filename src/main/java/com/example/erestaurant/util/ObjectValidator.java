@@ -51,4 +51,11 @@ public class ObjectValidator {
         }
     }
 
+    public static void validateCustomerOrderFieldsForNull(CustomerOrder customerOrder) throws ObjectValidationException {
+        if (customerOrder.getUser() == null || customerOrder.getDishes() == null) {
+            throw new ObjectValidationException(customerOrder + " object contains null field.");
+        }
+    }
+
+
 }
